@@ -1,0 +1,9 @@
+﻿.order-progress a:before {
+    display: none;
+}
+.order-progress a {
+    text-transform: uppercase;
+}
+.order-progress .active-step a {
+    color: red;
+}

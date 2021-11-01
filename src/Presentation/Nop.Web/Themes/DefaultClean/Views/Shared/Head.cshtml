@@ -8,6 +8,9 @@
     var supportRtl = (await workContext.GetWorkingLanguageAsync()).Rtl;
     var themeName = await themeContext.GetWorkingThemeNameAsync();
 
+    //add custom CSS file(s)
+    Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/custom.css");
+
     //add main CSS file
     if (supportRtl)
     {

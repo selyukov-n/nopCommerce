@@ -10,6 +10,7 @@ namespace Nop.Web.Models.Checkout
     public enum CheckoutProgressStep
     {
         Cart,
+        AdditionalProducts,
         Address,
         Shipping,
         Payment,

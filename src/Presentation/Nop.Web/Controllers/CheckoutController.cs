@@ -265,7 +265,7 @@ namespace Nop.Web.Controllers
             if (_orderSettings.OnePageCheckoutEnabled)
                 return RedirectToRoute("CheckoutOnePage");
 
-            return RedirectToRoute("CheckoutBillingAddress");
+            return RedirectToRoute("CheckoutOfferAdditional");
         }
 
         [IgnoreAntiforgeryToken]
@@ -427,6 +427,28 @@ namespace Nop.Web.Controllers
 
         #region Methods (multistep checkout)
 
+        public async Task<IActionResult> OfferAdditional()
+        {
+            // TODO validation
+            //  ensure no one-page-checkout
+
+            var cart = await _shoppingCartService.GetShoppingCartAsync(await _workContext.GetCurrentCustomerAsync(), ShoppingCartType.ShoppingCart, (await _storeContext.GetCurrentStoreAsync()).Id);
+
+            // TODO model ?
+
+            return View(cart);
+        }
+
+        [HttpPost, ActionName("OfferAdditional")]
+        [FormValueRequired("nextstep")]
+        public IActionResult SelectAdditional(IFormCollection form)
+        {
+            // TODO
+
+            return RedirectToRoute("CheckoutBillingAddress");
+        }
+
+        /// <returns>A task that represents the asynchronous operation</returns>
         public virtual async Task<IActionResult> BillingAddress(IFormCollection form)
         {
             //validation

@@ -16,6 +16,7 @@
         @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CheckoutProgressBefore })
         @{
             Item(CheckoutProgressStep.Cart, "ShoppingCart", T("Checkout.Progress.Cart"));
+            Item(CheckoutProgressStep.AdditionalProducts, "CheckoutOfferAdditional", T("TODO extra"));
             Item(CheckoutProgressStep.Address, "CheckoutBillingAddress", T("Checkout.Progress.Address"));
             Item(CheckoutProgressStep.Shipping, "CheckoutShippingMethod", T("Checkout.Progress.Shipping"));
             Item(CheckoutProgressStep.Payment, "CheckoutPaymentMethod", T("Checkout.Progress.Payment"));

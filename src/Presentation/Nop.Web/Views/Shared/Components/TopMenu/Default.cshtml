@@ -91,6 +91,7 @@
     {
         <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
     }
+    <li><a href="@Url.RouteUrl("Checkout")">Checkout</a></li>
     @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderMenuAfter })
 </ul>
 @{
@@ -145,6 +146,7 @@
         {
             <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
         }
+        <li><a href="@Url.RouteUrl("Checkout")">Checkout</a></li>
         @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MobHeaderMenuAfter })
     </ul>
 

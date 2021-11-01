@@ -7,3 +7,8 @@
 .order-progress .active-step a {
     color: red;
 }
+
+/* top menu */
+.header {
+    display: none;
+}

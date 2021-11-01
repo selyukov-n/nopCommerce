@@ -42,6 +42,27 @@
             }
         </li>
     }
+
+    void TopicLine(TopMenuModel.TopicNodeModel item, int level = 0)
+    {
+        <li>
+            @{
+                var href = item.Topic == null ? null : Url.RouteUrl("Topic", new { SeName = item.Topic.SeName });
+            }
+            <a href="@href">@item.Name</a>
+
+            @if (item.Children.Count > 0)
+            {
+                <div class="sublist-toggle"></div>
+                <ul class="sublist @(level == 1 ? "first-level" : null)">
+                    @foreach (var child in item.Children)
+                    {
+                        TopicLine(child, level + 1);
+                    }
+                </ul>
+            }
+        </li>
+    }
 }
 
 <ul class="top-menu notmobile">
@@ -63,9 +84,9 @@
         }
 
     }
-    @foreach (var topic in Model.Topics)
+    @foreach (var topic in Model.GetTopicHierarchy())
     {
-        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+        TopicLine(topic);
     }
     @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
     {
@@ -95,7 +116,7 @@
     @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderMenuAfter })
 </ul>
 @{
-    var rootCategoriesResponsive = Model.Categories.ToList();
+    var rootCategoriesResponsive = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
     //name it "Categories" if we have only categories. Otherwise, "Menu"
     var responsiveMenuTitle = Model.HasOnlyCategories ? T("Categories") : T("Menu");
     <div class="menu-toggle">@responsiveMenuTitle</div>
@@ -118,9 +139,9 @@
             }
 
         }
-        @foreach (var topic in Model.Topics)
+        @foreach (var topic in Model.GetTopicHierarchy())
         {
-            <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+            TopicLine(topic);
         }
         @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
         {

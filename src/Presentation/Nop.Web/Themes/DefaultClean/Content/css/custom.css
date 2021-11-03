@@ -12,3 +12,41 @@
 .header {
     display: none;
 }
+
+.main-search {
+    background-color: red;
+    padding: 30px;
+}
+.main-search .search-input {
+    width: 400px;
+}
+.main-search .search-input .form-fields {
+    padding: 10px 15px;
+    margin: 10px;
+    border-radius: 0.5rem;
+}
+  .main-search .search-input .form-fields h1 {
+    font-size: 1.75rem;
+  }
+  .main-search .search-input .form-fields header p {
+      line-height: 1.375;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+  }
+  .main-search .search-input .form-fields .search-button {
+      width: 100%;
+      border-radius: 0.3125rem;
+  }
+
+.main-search .inputs label {
+    width: 100px;
+}
+.main-search .inputs select {
+    width: 240px;
+}
+  .main-search .inputs select:disabled {
+      color: #7d7d7d;
+      border-color: rgb(210, 214, 203);
+      cursor: not-allowed;
+  }

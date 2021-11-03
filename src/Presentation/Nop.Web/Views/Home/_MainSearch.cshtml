@@ -1,0 +1,114 @@
+﻿@model Nop.Web.Models.Catalog.SearchModel
+<div class="main-search">
+    @* TODO 'logo' *@
+    <svg style="float: right">
+        <path d="M14,100 h285 v-40 l-40-40h-100 l-50 30 l-90 10 l-10 20 v15 Z M190,50h-70 l40-25h35z M270,50h-75 l5-25h45 z" fill="green"></path>
+        <circle fill="rgba(0,0,0, 0.5)" cx="75" cy="100" r="25"></circle>
+        <circle fill="rgba(0,0,0, 0.5)" cx="255" cy="100" r="25"></circle>
+    </svg>
+
+    @* search form *@
+    <article class="search-input">
+        <form novalidate method="get" asp-route="ProductSearch"> @* TODO use route with this data (manufacturer, model) *@
+            @{
+                var manufacturers = new[] { "Audi", "Bentley", "Volkswagen" }.Select(s => new SelectListItem(s, s)).ToList();
+                manufacturers.Insert(0, new SelectListItem("Select", null, true));
+
+                var models = new[] { "1", "2" }.Select(s => new SelectListItem(s, s));
+            }
+            <div class="form-fields">
+                <header>
+                    <h1>The better way to buy your next car</h1>
+                    <p>Buy, finance or subscribe entirely online and choose delivery or collection.</p>
+                </header>
+                <div class="advanced-search">
+                    <div class="inputs">
+                        <label for="ven">Manufacturer</label>
+                        <select id="ven" name="ven"></select>
+                    </div>
+                    <div class="inputs">
+                        <label for="model">Model</label>
+                        <select id="model" name="model"></select>
+                    </div>
+                </div>
+
+                <button type="submit" class="button-1 search-button">@T("Search.Button")</button>
+            </div>
+        </form>
+    </article>
+</div>
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        var data = [
+            {
+                vendor: "Audi",
+                items: ["A1", "A3", "A4", "A6"],
+            },
+            {
+                vendor: "BMW",
+                items: ["3 Series", "5 Series", "6 Series", "X5", "X6"],
+            },
+            {
+                vendor: "Jeep",
+                items: ["Cherokee", "Wrangler"],
+            },
+            {
+                vendor: "Kia",
+                items: ["Ceed", "Picanto", "Rio", "Soul"],
+            },
+            {
+                vendor: "Land Rover",
+                items: ["Discovery", "Range Rover"],
+            },
+            {
+                vendor: "Mercedes-Benz",
+                items: ["A Class", "B Class", "C Class", "GLA Class", "E Class", "S Class"]
+            },
+            {
+                vendor: "Porsche",
+                items: ["911", "Cayenne"]
+            },
+            {
+                vendor: "Seat",
+                items: ["Ibiza", "Leon"]
+            },
+            {
+                vendor: "Skoda",
+                items: ["Fabia", "Kodiaq", "Octavia", "Yeti"]
+            },
+            {
+                vendor: "Toyota",
+                items: ["Auris", "Corolla", "Land Cruiser", "Prius", "RAV4"]
+            },
+            {
+                vendor: "Volkswagen",
+                items: ["Beetle", "Caravelle", "Golf", "Passat", "Polo", "Tiguan", "Touareg", "Touran"],
+            },
+            {
+                vendor: "Volvo",
+                items: ["S", "V", "XC"].reduce((a, s) => a.concat(s + "40", s + "60", s + "90"), []),
+            },
+        ];
+
+        const make = (text, value) => $("<option>").attr("value", value).text(text);
+
+        function setItems(selector, items) {
+            var options = items.map(make);
+            return $(selector)
+                .empty()
+                .append(make("Select"))
+                .append(options)
+                .attr("disabled", items.length > 0 ? null : "disabled");
+        }
+
+        setItems("#ven", data.map(t => t.vendor))
+            .change(function () {
+                var val = this.value;
+                var t = data[val];
+                var items = t && t.items || [];
+                setItems("#model", items);
+            });
+        setItems("#model", []);
+    })
+</script>
